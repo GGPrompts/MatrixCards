@@ -161,6 +161,144 @@
   display: none;  /* Chrome, Safari and Opera */
 }
 
+/* Scroll Indicators - Arrow Styles */
+.scrollIndicatorTop,
+.scrollIndicatorBottom {
+  position: absolute;
+  right: 15px; /* Aligned with scroll handle area */
+  width: 20px;
+  height: 20px;
+  pointer-events: none;
+  z-index: 15;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.scrollIndicatorTop {
+  top: 74px; /* Below the title with equal spacing */
+}
+
+.scrollIndicatorBottom {
+  bottom: 58px; /* Above the actions bar */
+}
+
+.scrollIndicatorTop.visible,
+.scrollIndicatorBottom.visible {
+  opacity: 0.7;
+}
+
+/* Hover effect for better visibility */
+.scrollIndicatorTop.visible:hover,
+.scrollIndicatorBottom.visible:hover {
+  opacity: 1;
+}
+
+/* Subtle pulse animation */
+@keyframes arrowPulse {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-2px); }
+}
+
+@keyframes arrowPulseDown {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(2px); }
+}
+
+.scrollIndicatorTop.visible {
+  animation: arrowPulse 2s ease-in-out infinite;
+}
+
+.scrollIndicatorBottom.visible {
+  animation: arrowPulseDown 2s ease-in-out infinite;
+}
+
+/* Arrow base styles */
+.scrollIndicatorTop::before,
+.scrollIndicatorBottom::before {
+  content: '';
+  width: 0;
+  height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+}
+
+.scrollIndicatorTop::before {
+  border-bottom: 8px solid rgba(255, 255, 255, 0.5);
+}
+
+.scrollIndicatorBottom::before {
+  border-top: 8px solid rgba(255, 255, 255, 0.5);
+}
+
+/* Matrix Green Variant Scroll Indicators */
+.card.matrix .scrollIndicatorTop::before {
+  border-bottom-color: #00ff00;
+  filter: drop-shadow(0 2px 4px rgba(0, 255, 0, 0.6));
+}
+
+.card.matrix .scrollIndicatorBottom::before {
+  border-top-color: #00ff00;
+  filter: drop-shadow(0 -2px 4px rgba(0, 255, 0, 0.6));
+}
+
+/* Matrix Teal Variant Scroll Indicators */
+.card.matrix-teal .scrollIndicatorTop::before {
+  border-bottom-color: #00ffff;
+  filter: drop-shadow(0 2px 4px rgba(0, 255, 255, 0.6));
+}
+
+.card.matrix-teal .scrollIndicatorBottom::before {
+  border-top-color: #00ffff;
+  filter: drop-shadow(0 -2px 4px rgba(0, 255, 255, 0.6));
+}
+
+/* Matrix Orange Variant Scroll Indicators */
+.card.matrix-orange .scrollIndicatorTop::before {
+  border-bottom-color: #ff8800;
+  filter: drop-shadow(0 2px 4px rgba(255, 136, 0, 0.6));
+}
+
+.card.matrix-orange .scrollIndicatorBottom::before {
+  border-top-color: #ff8800;
+  filter: drop-shadow(0 -2px 4px rgba(255, 136, 0, 0.6));
+}
+
+/* Matrix Purple Variant Scroll Indicators */
+.card.matrix-purple .scrollIndicatorTop::before {
+  border-bottom-color: #bb00ff;
+  filter: drop-shadow(0 2px 4px rgba(187, 0, 255, 0.6));
+}
+
+.card.matrix-purple .scrollIndicatorBottom::before {
+  border-top-color: #bb00ff;
+  filter: drop-shadow(0 -2px 4px rgba(187, 0, 255, 0.6));
+}
+
+/* Matrix Blue Variant Scroll Indicators */
+.card.matrix-blue .scrollIndicatorTop::before {
+  border-bottom-color: #0088ff;
+  filter: drop-shadow(0 2px 4px rgba(0, 136, 255, 0.6));
+}
+
+.card.matrix-blue .scrollIndicatorBottom::before {
+  border-top-color: #0088ff;
+  filter: drop-shadow(0 -2px 4px rgba(0, 136, 255, 0.6));
+}
+
+/* Neon Variant Scroll Indicators */
+.card.neon .scrollIndicatorTop::before {
+  border-bottom-color: rgba(0, 255, 255, 0.8);
+  filter: drop-shadow(0 2px 4px rgba(0, 255, 255, 0.6));
+}
+
+.card.neon .scrollIndicatorBottom::before {
+  border-top-color: rgba(0, 255, 255, 0.8);
+  filter: drop-shadow(0 -2px 4px rgba(0, 255, 255, 0.6));
+}
+
 .cardActions {
   height: 48px;
   display: flex;
@@ -638,7 +776,6 @@
               0 0 0 1px rgba(187, 0, 255, 0.3) inset;
   font-family: 'Courier New', 'Consolas', 'Monaco', monospace;
   outline: none;
-  position: absolute;
   box-sizing: border-box;
   -webkit-appearance: none;
   -moz-appearance: none;
@@ -673,7 +810,7 @@
       rgba(187, 0, 255, 0.03) 4px
     );
   pointer-events: none;
-  z-index: 0;
+  z-index: 1;
 }
 
 .card.matrix-purple .cardFront::after {
@@ -690,7 +827,7 @@
   white-space: nowrap;
   animation: matrixScroll 20s linear infinite;
   pointer-events: none;
-  z-index: 0;
+  z-index: 2;
 }
 
 .card.matrix-purple .cardTitle {

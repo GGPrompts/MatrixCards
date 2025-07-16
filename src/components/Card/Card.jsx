@@ -11,6 +11,8 @@ const Card = ({
   variant = 'matrix' // Default to matrix style
 }) => {
   const [isFlipped, setIsFlipped] = useState(false);
+  const [frontScrollIndicators, setFrontScrollIndicators] = useState({ top: false, bottom: false });
+  const [backScrollIndicators, setBackScrollIndicators] = useState({ top: false, bottom: false });
   const frontContentRef = useRef(null);
   const backContentRef = useRef(null);
 
@@ -22,6 +24,21 @@ const Card = ({
   
   const handleAction = (action) => {
     console.log(`Action clicked: ${action}`);
+  };
+
+  // Check if content is scrollable and update indicators
+  const updateScrollIndicators = (element, setIndicators) => {
+    if (!element) return;
+    
+    const { scrollTop, scrollHeight, clientHeight } = element;
+    const isScrollable = scrollHeight > clientHeight;
+    const hasScrolledDown = scrollTop > 1; // Small threshold for float precision
+    const hasMoreBelow = scrollTop < (scrollHeight - clientHeight - 1);
+    
+    setIndicators({
+      top: isScrollable && hasScrolledDown,
+      bottom: isScrollable && hasMoreBelow
+    });
   };
 
   // Handle scroll via the invisible handle
@@ -88,6 +105,44 @@ const Card = ({
     };
   }, []);
 
+  // Monitor scroll position for indicators
+  useEffect(() => {
+    const frontContent = frontContentRef.current;
+    const backContent = backContentRef.current;
+
+    // Initial check
+    updateScrollIndicators(frontContent, setFrontScrollIndicators);
+    updateScrollIndicators(backContent, setBackScrollIndicators);
+
+    // Scroll event handlers
+    const handleFrontScroll = () => updateScrollIndicators(frontContent, setFrontScrollIndicators);
+    const handleBackScroll = () => updateScrollIndicators(backContent, setBackScrollIndicators);
+
+    if (frontContent) {
+      frontContent.addEventListener('scroll', handleFrontScroll);
+    }
+    if (backContent) {
+      backContent.addEventListener('scroll', handleBackScroll);
+    }
+
+    // Also check on resize
+    const handleResize = () => {
+      updateScrollIndicators(frontContent, setFrontScrollIndicators);
+      updateScrollIndicators(backContent, setBackScrollIndicators);
+    };
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      if (frontContent) {
+        frontContent.removeEventListener('scroll', handleFrontScroll);
+      }
+      if (backContent) {
+        backContent.removeEventListener('scroll', handleBackScroll);
+      }
+      window.removeEventListener('resize', handleResize);
+    };
+  }, [content, backContent]); // Re-check when content changes
+
   return (
     <div 
       className={`${styles.cardContainer} ${className} ${isFlipped ? styles.containerFlipped : ''}`}
@@ -104,6 +159,8 @@ const Card = ({
             {content}
             <div className={styles.scrollHandle} />
           </div>
+          <div className={`${styles.scrollIndicatorTop} ${frontScrollIndicators.top ? styles.visible : ''}`} />
+          <div className={`${styles.scrollIndicatorBottom} ${frontScrollIndicators.bottom ? styles.visible : ''}`} />
           <div className={styles.cardActions}>
             <button className={styles.actionButton} onClick={() => handleAction('execute')} title="Execute">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -142,6 +199,8 @@ const Card = ({
               {backContent}
               <div className={styles.scrollHandle} />
             </div>
+            <div className={`${styles.scrollIndicatorTop} ${backScrollIndicators.top ? styles.visible : ''}`} />
+            <div className={`${styles.scrollIndicatorBottom} ${backScrollIndicators.bottom ? styles.visible : ''}`} />
           </div>
         )}
       </div>

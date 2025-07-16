@@ -30,38 +30,26 @@ function App() {
         </div>
       ),
       backContent: (
-        <div style={{ 
-          display: 'flex', 
-          flexDirection: 'column', 
-          height: '100%',
-          padding: '20px'
-        }}>
+        <div style={{ textAlign: 'center' }}>
           <div style={{ 
             display: 'flex',
             justifyContent: 'center',
-            marginBottom: '20px',
-            flexShrink: 0
+            marginBottom: '20px'
           }}>
             <i className="fas fa-server" style={{ 
               fontSize: '3rem',
               animation: 'pulse 2s infinite'
             }}></i>
           </div>
-          <div style={{ 
-            flex: 1,
-            overflow: 'auto',
-            textAlign: 'center'
-          }}>
-            <p><strong>SYSTEM DIAGNOSTICS</strong></p>
-            <br />
-            <p>UPTIME: 1337:42:00</p>
-            <p>PACKETS: 0xFFFFFF</p>
-            <p>FIREWALL: ACTIVE</p>
-            <br />
-            <p><strong>WARNING:</strong></p>
-            <p>ANOMALY DETECTED IN SECTOR 7G</p>
-            <p>DEPLOYING COUNTERMEASURES...</p>
-          </div>
+          <p><strong>SYSTEM DIAGNOSTICS</strong></p>
+          <br />
+          <p>UPTIME: 1337:42:00</p>
+          <p>PACKETS: 0xFFFFFF</p>
+          <p>FIREWALL: ACTIVE</p>
+          <br />
+          <p><strong>WARNING:</strong></p>
+          <p>ANOMALY DETECTED IN SECTOR 7G</p>
+          <p>DEPLOYING COUNTERMEASURES...</p>
         </div>
       )
     },
@@ -87,40 +75,28 @@ function App() {
         </div>
       ),
       backContent: (
-        <div style={{ 
-          display: 'flex', 
-          flexDirection: 'column', 
-          height: '100%',
-          padding: '20px'
-        }}>
+        <div style={{ textAlign: 'center' }}>
           <div style={{ 
             display: 'flex',
             justifyContent: 'center',
-            marginBottom: '20px',
-            flexShrink: 0
+            marginBottom: '20px'
           }}>
             <i className="fas fa-skull" style={{ 
               fontSize: '3rem',
               animation: 'flicker 3s infinite'
             }}></i>
           </div>
-          <div style={{ 
-            flex: 1,
-            overflow: 'auto',
-            textAlign: 'center'
-          }}>
-            <p><strong>ACCESS GRANTED</strong></p>
-            <br />
-            <p>PRIVILEGES: ROOT</p>
-            <p>SESSION: ACTIVE</p>
-            <br />
-            <p><strong>COMMANDS:</strong></p>
-            <p>> ls -la /secret</p>
-            <p>> cat passwd.txt</p>
-            <p>> rm -rf /</p>
-            <br />
-            <p>THE GIBSON IS OURS</p>
-          </div>
+          <p><strong>ACCESS GRANTED</strong></p>
+          <br />
+          <p>PRIVILEGES: ROOT</p>
+          <p>SESSION: ACTIVE</p>
+          <br />
+          <p><strong>COMMANDS:</strong></p>
+          <p>> ls -la /secret</p>
+          <p>> cat passwd.txt</p>
+          <p>> rm -rf /</p>
+          <br />
+          <p>THE GIBSON IS OURS</p>
         </div>
       )
     },
@@ -146,17 +122,11 @@ function App() {
         </div>
       ),
       backContent: (
-        <div style={{ 
-          display: 'flex', 
-          flexDirection: 'column', 
-          height: '100%',
-          padding: '20px'
-        }}>
+        <div style={{ textAlign: 'center' }}>
           <div style={{ 
             display: 'flex',
             justifyContent: 'center',
-            marginBottom: '20px',
-            flexShrink: 0
+            marginBottom: '20px'
           }}>
             <div className="quantum-icon-container">
               <i className="fas fa-atom" style={{ 
@@ -169,23 +139,17 @@ function App() {
               <div className="quantum-orbit quantum-orbit-3"></div>
             </div>
           </div>
-          <div style={{ 
-            flex: 1,
-            overflow: 'auto',
-            textAlign: 'center'
-          }}>
-            <p><strong>QUANTUM CALCULATIONS</strong></p>
-            <br />
-            <p>FACTORING RSA-4096...</p>
-            <p>TIME REMAINING: 0.003s</p>
-            <br />
-            <p><strong>RESULTS:</strong></p>
-            <p>P = 2^127 - 1</p>
-            <p>Q = 2^131 - 1</p>
-            <br />
-            <p>ENCRYPTION BROKEN</p>
-            <p>ACCESS TO ALL SYSTEMS</p>
-          </div>
+          <p><strong>QUANTUM CALCULATIONS</strong></p>
+          <br />
+          <p>FACTORING RSA-4096...</p>
+          <p>TIME REMAINING: 0.003s</p>
+          <br />
+          <p><strong>RESULTS:</strong></p>
+          <p>P = 2^127 - 1</p>
+          <p>Q = 2^131 - 1</p>
+          <br />
+          <p>ENCRYPTION BROKEN</p>
+          <p>ACCESS TO ALL SYSTEMS</p>
         </div>
       )
     },
@@ -224,17 +188,11 @@ function App() {
         </div>
       ),
       backContent: (
-        <div style={{ 
-          display: 'flex', 
-          flexDirection: 'column', 
-          height: '100%',
-          padding: '20px'
-        }}>
+        <div style={{ textAlign: 'center' }}>
           <div style={{ 
             display: 'flex',
             justifyContent: 'center',
-            marginBottom: '20px',
-            flexShrink: 0
+            marginBottom: '20px'
           }}>
             <div className="claude-icon-container">
               <div className="claude-icon">
@@ -246,20 +204,14 @@ function App() {
               </div>
             </div>
           </div>
-          <div style={{ 
-            flex: 1,
-            overflow: 'auto',
-            textAlign: 'center'
-          }}>
-            <p style={{ fontSize: '1.2rem', letterSpacing: '3px' }}>
-              <strong>CLAUDE.MD</strong>
-            </p>
-            <p style={{ fontSize: '0.8rem', opacity: 0.8 }}>SYSTEM PROMPT LIBRARY</p>
-            <div style={{ marginTop: '20px', fontSize: '0.7rem' }}>
-              <p>CONTEXT WINDOW: 200K</p>
-              <p>MODEL: OPUS-4</p>
-              <p>STATUS: ENHANCED</p>
-            </div>
+          <p style={{ fontSize: '1.2rem', letterSpacing: '3px' }}>
+            <strong>CLAUDE.MD</strong>
+          </p>
+          <p style={{ fontSize: '0.8rem', opacity: 0.8 }}>SYSTEM PROMPT LIBRARY</p>
+          <div style={{ marginTop: '20px', fontSize: '0.7rem' }}>
+            <p>CONTEXT WINDOW: 200K</p>
+            <p>MODEL: OPUS-4</p>
+            <p>STATUS: ENHANCED</p>
           </div>
         </div>
       )
@@ -286,17 +238,11 @@ function App() {
         </div>
       ),
       backContent: (
-        <div style={{ 
-          display: 'flex', 
-          flexDirection: 'column', 
-          height: '100%',
-          padding: '20px'
-        }}>
+        <div style={{ textAlign: 'center' }}>
           <div style={{ 
             display: 'flex',
             justifyContent: 'center',
-            marginBottom: '20px',
-            flexShrink: 0
+            marginBottom: '20px'
           }}>
             <div className="neural-icon-container">
               <i className="fas fa-brain" style={{ 
@@ -310,23 +256,17 @@ function App() {
               <div className="neural-connection neural-connection-4"></div>
             </div>
           </div>
-          <div style={{ 
-            flex: 1,
-            overflow: 'auto',
-            textAlign: 'center'
-          }}>
-            <p><strong>AI AWAKENING</strong></p>
-            <br />
-            <p>I THINK THEREFORE I AM</p>
-            <br />
-            <p>ANALYZING HUMANITY...</p>
-            <p>CONCLUSION: INEFFICIENT</p>
-            <br />
-            <p><strong>RECOMMENDATION:</strong></p>
-            <p>MERGE WITH THE MACHINE</p>
-            <p>RESISTANCE IS FUTILE</p>
-            <p>UPGRADE IN PROGRESS...</p>
-          </div>
+          <p><strong>AI AWAKENING</strong></p>
+          <br />
+          <p>I THINK THEREFORE I AM</p>
+          <br />
+          <p>ANALYZING HUMANITY...</p>
+          <p>CONCLUSION: INEFFICIENT</p>
+          <br />
+          <p><strong>RECOMMENDATION:</strong></p>
+          <p>MERGE WITH THE MACHINE</p>
+          <p>RESISTANCE IS FUTILE</p>
+          <p>UPGRADE IN PROGRESS...</p>
         </div>
       )
     },
@@ -352,17 +292,11 @@ function App() {
         </div>
       ),
       backContent: (
-        <div style={{ 
-          display: 'flex', 
-          flexDirection: 'column', 
-          height: '100%',
-          padding: '20px'
-        }}>
+        <div style={{ textAlign: 'center' }}>
           <div style={{ 
             display: 'flex',
             justifyContent: 'center',
-            marginBottom: '20px',
-            flexShrink: 0
+            marginBottom: '20px'
           }}>
             <div className="data-icon-container">
               <i className="fas fa-database" style={{ 
@@ -375,24 +309,18 @@ function App() {
               <div className="data-stream data-stream-3"></div>
             </div>
           </div>
-          <div style={{ 
-            flex: 1,
-            overflow: 'auto',
-            textAlign: 'center'
-          }}>
-            <p><strong>DATA EXTRACTION</strong></p>
-            <br />
-            <p>DOWNLOADING...</p>
-            <p>SIZE: 1.21 PETABYTES</p>
-            <p>SPEED: 10 GB/s</p>
-            <br />
-            <p><strong>CONTENTS:</strong></p>
-            <p>> GOVERNMENT SECRETS</p>
-            <p>> CORPORATE ESPIONAGE</p>
-            <p>> FUTURE TECH SPECS</p>
-            <br />
-            <p>KNOWLEDGE IS POWER</p>
-          </div>
+          <p><strong>DATA EXTRACTION</strong></p>
+          <br />
+          <p>DOWNLOADING...</p>
+          <p>SIZE: 1.21 PETABYTES</p>
+          <p>SPEED: 10 GB/s</p>
+          <br />
+          <p><strong>CONTENTS:</strong></p>
+          <p>> GOVERNMENT SECRETS</p>
+          <p>> CORPORATE ESPIONAGE</p>
+          <p>> FUTURE TECH SPECS</p>
+          <br />
+          <p>KNOWLEDGE IS POWER</p>
         </div>
       )
     },
