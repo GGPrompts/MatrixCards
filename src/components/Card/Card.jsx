@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import styles from './Card.module.css';
 
 const Card = ({ 
@@ -11,6 +11,8 @@ const Card = ({
   variant = 'matrix' // Default to matrix style
 }) => {
   const [isFlipped, setIsFlipped] = useState(false);
+  const frontContentRef = useRef(null);
+  const backContentRef = useRef(null);
 
   const handleHeaderClick = () => {
     if (backContent) {
@@ -21,6 +23,70 @@ const Card = ({
   const handleAction = (action) => {
     console.log(`Action clicked: ${action}`);
   };
+
+  // Handle scroll via the invisible handle
+  useEffect(() => {
+    const handleScrollGesture = (scrollHandle, contentContainer) => {
+      if (!scrollHandle || !contentContainer) return;
+
+      let isScrolling = false;
+      let startY = 0;
+      let startScrollTop = 0;
+
+      const handleStart = (e) => {
+        isScrolling = true;
+        startY = e.type.includes('touch') ? e.touches[0].clientY : e.clientY;
+        startScrollTop = contentContainer.scrollTop;
+        e.preventDefault();
+      };
+
+      const handleMove = (e) => {
+        if (!isScrolling) return;
+        e.preventDefault();
+        
+        const currentY = e.type.includes('touch') ? e.touches[0].clientY : e.clientY;
+        const deltaY = startY - currentY;
+        contentContainer.scrollTop = startScrollTop + deltaY;
+      };
+
+      const handleEnd = () => {
+        isScrolling = false;
+      };
+
+      // Touch events
+      scrollHandle.addEventListener('touchstart', handleStart, { passive: false });
+      scrollHandle.addEventListener('touchmove', handleMove, { passive: false });
+      scrollHandle.addEventListener('touchend', handleEnd);
+
+      // Mouse events for testing
+      scrollHandle.addEventListener('mousedown', handleStart);
+      window.addEventListener('mousemove', handleMove);
+      window.addEventListener('mouseup', handleEnd);
+
+      return () => {
+        scrollHandle.removeEventListener('touchstart', handleStart);
+        scrollHandle.removeEventListener('touchmove', handleMove);
+        scrollHandle.removeEventListener('touchend', handleEnd);
+        scrollHandle.removeEventListener('mousedown', handleStart);
+        window.removeEventListener('mousemove', handleMove);
+        window.removeEventListener('mouseup', handleEnd);
+      };
+    };
+
+    // Set up scroll handles for both front and back content
+    const frontHandle = frontContentRef.current?.querySelector(`.${styles.scrollHandle}`);
+    const frontContent = frontContentRef.current;
+    const backHandle = backContentRef.current?.querySelector(`.${styles.scrollHandle}`);
+    const backContent = backContentRef.current;
+
+    const cleanupFront = handleScrollGesture(frontHandle, frontContent);
+    const cleanupBack = handleScrollGesture(backHandle, backContent);
+
+    return () => {
+      if (cleanupFront) cleanupFront();
+      if (cleanupBack) cleanupBack();
+    };
+  }, []);
 
   return (
     <div 
@@ -34,8 +100,9 @@ const Card = ({
           <div className={styles.cardTitle} onClick={handleHeaderClick}>
             <h3>{title}</h3>
           </div>
-          <div className={styles.cardContent}>
+          <div className={styles.cardContent} ref={frontContentRef}>
             {content}
+            <div className={styles.scrollHandle} />
           </div>
           <div className={styles.cardActions}>
             <button className={styles.actionButton} onClick={() => handleAction('execute')} title="Execute">
@@ -71,8 +138,9 @@ const Card = ({
         </div>
         {backContent && (
           <div className={styles.cardBack} onClick={handleHeaderClick}>
-            <div className={styles.cardBackContent}>
+            <div className={styles.cardBackContent} ref={backContentRef}>
               {backContent}
+              <div className={styles.scrollHandle} />
             </div>
           </div>
         )}

@@ -87,3 +87,71 @@ The cards use CSS modules for styling. You can modify:
 - Safari: Full support
 
 Enjoy the cyberpunk aesthetic! 🎭💚
+
+## Transferring to Another Project
+
+### Important Notes for GGPrompts Integration
+
+1. **CSS Modules**: Both `Card` and `CardPack` components use CSS modules properly:
+   - All styles are scoped using `styles.className`
+   - No global CSS pollution
+   - Ready for integration into CSS module-based projects
+
+2. **Files to Transfer**:
+   ```
+   src/components/Card/
+   ├── Card.jsx
+   └── Card.module.css
+   
+   src/components/CardPack/
+   ├── CardPack.jsx
+   └── CardPack.module.css
+   ```
+
+3. **Dependencies**: 
+   - No external dependencies required
+   - Pure React components with CSS modules
+   - Icons use inline SVG (no icon libraries needed)
+
+4. **⚠️ CSS Module Compatibility Issue**:
+   - The `Card.module.css` contains some `:global()` selectors for icon animations
+   - These are used for the special icon effects (Claude, quantum, neural, data icons)
+   - **Solution**: Either:
+     a) Convert these to module classes (recommended)
+     b) Ensure the global classes don't conflict with your project
+
+5. **Integration Steps**:
+   ```bash
+   # 1. Copy component folders to your project
+   cp -r src/components/Card your-project/src/components/
+   cp -r src/components/CardPack your-project/src/components/
+   
+   # 2. Import and use
+   import Card from './components/Card/Card';
+   import CardPack from './components/CardPack/CardPack';
+   ```
+
+6. **Customization**:
+   - All colors use CSS `currentColor` which inherits from variant classes
+   - Easily themeable by modifying the color values in CSS
+   - Responsive design included
+
+7. **Usage Example**:
+   ```jsx
+   // Individual card
+   <Card
+     title="SYSTEM.INIT"
+     variant="matrix"
+     content={<div>Front content</div>}
+     backContent={<div>Back content</div>}
+   />
+   
+   // Card pack
+   <CardPack
+     title="MATRIX CARDS"
+     subtitle="DIGITAL COLLECTION"
+     cards={cardsArray}
+     variant="matrix-green"
+     onOpen={handlePackOpen}
+   />
+   ```

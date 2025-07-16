@@ -99,6 +99,41 @@
   transform: translateZ(0);
 }
 
+/* Invisible scroll handle for mobile */
+.scrollHandle {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 50px; /* About thumb width */
+  z-index: 10;
+  cursor: grab;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.scrollHandle:active {
+  cursor: grabbing;
+}
+
+/* Only show on touch devices */
+@media (pointer: coarse) {
+  .scrollHandle {
+    display: block;
+  }
+}
+
+/* Hide on non-touch devices */
+@media (pointer: fine) {
+  .scrollHandle {
+    display: none;
+  }
+}
+
 .cardBackContent {
   padding: 24px;
   height: 100%;
