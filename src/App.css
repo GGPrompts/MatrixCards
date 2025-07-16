@@ -1,5 +1,6 @@
 * {
   box-sizing: border-box;
+  outline: none;
 }
 
 body {
@@ -10,6 +11,8 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
 }
 
 /* Dark theme */
@@ -88,6 +91,8 @@ body {
   justify-items: center;
   position: relative;
   z-index: 1;
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
 }
 
 .terminal {

@@ -7,6 +7,8 @@
   position: relative;
   z-index: 1;
   transition: z-index 0s;
+  outline: none;
+  border: none;
 }
 
 .cardContainer.containerFlipped {
@@ -15,13 +17,20 @@
 
 /* Prevent any transform on hover when flipped */
 .containerFlipped .cardFront {
-  transform: none !important;
+  transform: none;
 }
 
 /* Special handling for matrix cards */
-.cardContainer:has(.card.matrix) {
+.cardContainer:has(.card.matrix),
+.cardContainer:has(.card.matrix-purple),
+.cardContainer:has(.card.matrix-teal),
+.cardContainer:has(.card.matrix-orange),
+.cardContainer:has(.card.matrix-blue) {
   transform: translateZ(0);
   will-change: transform;
+  -webkit-transform: translateZ(0);
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
 }
 
 .card {
@@ -30,6 +39,8 @@
   position: relative;
   transform-style: preserve-3d;
   transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  outline: none;
+  border: none;
 }
 
 .card.flipped {
@@ -47,6 +58,8 @@
   display: flex;
   flex-direction: column;
   transform-style: preserve-3d;
+  outline: none;
+  box-sizing: border-box;
 }
 
 .cardBack {
@@ -76,16 +89,25 @@
   overflow-x: hidden;
   line-height: 1.6;
   -webkit-overflow-scrolling: touch;
-  overscroll-behavior-y: auto;
+  overscroll-behavior-y: contain;
   scroll-behavior: smooth;
   touch-action: pan-y;
   min-height: 0;
+  position: relative;
+  z-index: 1;
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
 }
 
 .cardBackContent {
   padding: 24px;
   height: 100%;
   overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior-y: contain;
+  touch-action: pan-y;
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
 }
 
 .cardContent::-webkit-scrollbar,
@@ -146,7 +168,11 @@
 }
 
 /* Ensure matrix cards don't move on flip */
-.card.matrix.flipped {
+.card.matrix.flipped,
+.card.matrix-purple.flipped,
+.card.matrix-teal.flipped,
+.card.matrix-orange.flipped,
+.card.matrix-blue.flipped {
   transform: rotateY(180deg);
 }
 
@@ -474,7 +500,7 @@
       rgba(255, 136, 0, 0.03) 4px
     );
   pointer-events: none;
-  z-index: 1;
+  z-index: 0;
 }
 
 .card.matrix-orange .cardFront::after {
@@ -491,7 +517,7 @@
   white-space: nowrap;
   animation: matrixScroll 20s linear infinite;
   pointer-events: none;
-  z-index: 2;
+  z-index: 0;
 }
 
 .card.matrix-orange .cardTitle {
@@ -576,6 +602,24 @@
               0 0 40px rgba(187, 0, 255, 0.3),
               0 0 0 1px rgba(187, 0, 255, 0.3) inset;
   font-family: 'Courier New', 'Consolas', 'Monaco', monospace;
+  outline: none;
+  position: absolute;
+  box-sizing: border-box;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+/* Remove any focus styles */
+.card.matrix-purple .cardFront:focus,
+.card.matrix-purple .cardBack:focus,
+.card.matrix-purple .cardFront:focus-visible,
+.card.matrix-purple .cardBack:focus-visible {
+  outline: none;
+  border: 1px solid #bb00ff;
+  box-shadow: 0 0 20px rgba(187, 0, 255, 0.5),
+              0 0 40px rgba(187, 0, 255, 0.3),
+              0 0 0 1px rgba(187, 0, 255, 0.3) inset;
 }
 
 .card.matrix-purple .cardFront::before {
@@ -594,7 +638,7 @@
       rgba(187, 0, 255, 0.03) 4px
     );
   pointer-events: none;
-  z-index: 1;
+  z-index: 0;
 }
 
 .card.matrix-purple .cardFront::after {
@@ -611,7 +655,7 @@
   white-space: nowrap;
   animation: matrixScroll 20s linear infinite;
   pointer-events: none;
-  z-index: 2;
+  z-index: 0;
 }
 
 .card.matrix-purple .cardTitle {
