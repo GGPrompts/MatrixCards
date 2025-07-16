@@ -162,3 +162,13 @@ body {
   position: relative;
   z-index: 2;
 }
+
+/* Hide scrollbars globally for Matrix Cards */
+* {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+*::-webkit-scrollbar {
+  display: none;  /* Chrome, Safari and Opera */
+}
