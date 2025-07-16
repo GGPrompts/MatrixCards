@@ -1,9 +1,12 @@
 import React, { useState } from 'react';
 import Card from './components/Card/Card';
+import CardPack from './components/CardPack/CardPack';
 import './App.css';
 
 function App() {
   const [theme, setTheme] = useState('dark');
+  const [selectedPack, setSelectedPack] = useState(null);
+  const [showPacks, setShowPacks] = useState(true);
 
   const matrixCards = [
     {
@@ -465,6 +468,70 @@ function App() {
     }
   ];
 
+  // Group cards into packs
+  const cardPacks = [
+    {
+      id: 'core-matrix',
+      title: 'CORE MATRIX',
+      subtitle: 'ESSENTIAL PROTOCOLS',
+      variant: 'matrix-green',
+      cards: matrixCards.filter(card => card.variant === 'matrix')
+    },
+    {
+      id: 'quantum-teal',
+      title: 'QUANTUM REALM',
+      subtitle: 'ADVANCED PHYSICS',
+      variant: 'matrix-teal',
+      cards: matrixCards.filter(card => card.variant === 'matrix-teal')
+    },
+    {
+      id: 'firewall-orange',
+      title: 'FIREWALL SUITE',
+      subtitle: 'SECURITY SYSTEMS',
+      variant: 'matrix-orange',
+      cards: matrixCards.filter(card => card.variant === 'matrix-orange')
+    },
+    {
+      id: 'neural-purple',
+      title: 'NEURAL NETWORKS',
+      subtitle: 'AI CONSCIOUSNESS',
+      variant: 'matrix-purple',
+      cards: matrixCards.filter(card => card.variant === 'matrix-purple')
+    },
+    {
+      id: 'deepweb-blue',
+      title: 'DEEP WEB',
+      subtitle: 'HIDDEN LAYERS',
+      variant: 'matrix-blue',
+      cards: matrixCards.filter(card => card.variant === 'matrix-blue')
+    },
+    {
+      id: 'neon-interface',
+      title: 'NEON INTERFACE',
+      subtitle: 'CYBERPUNK EDITION',
+      variant: 'matrix-teal',
+      cards: matrixCards.filter(card => card.variant === 'neon')
+    },
+    {
+      id: 'master-collection',
+      title: 'MASTER COLLECTION',
+      subtitle: 'COMPLETE SET',
+      variant: 'matrix-green',
+      cards: matrixCards
+    }
+  ];
+
+  const handlePackOpen = (packId) => {
+    const pack = cardPacks.find(p => p.id === packId);
+    setSelectedPack(pack);
+    setShowPacks(false);
+  };
+
+  const handleBackToPacks = () => {
+    setSelectedPack(null);
+    setShowPacks(true);
+  };
+
   return (
     <div className={`app ${theme}`}>
       <header className="header">
@@ -472,25 +539,61 @@ function App() {
           <span className="matrix-text">MATRIX</span>
           <span className="neon-text">CARDS</span>
         </h1>
-        <button className="themeToggle" onClick={() => setTheme(theme === 'dark' ? 'cyber' : 'dark')}>
-          {theme === 'dark' ? '⚡ Cyber Mode' : '🌑 Dark Mode'}
-        </button>
+        <div className="headerControls">
+          {!showPacks && (
+            <button className="backButton" onClick={handleBackToPacks}>
+              ← Back to Packs
+            </button>
+          )}
+          <button className="themeToggle" onClick={() => setTheme(theme === 'dark' ? 'cyber' : 'dark')}>
+            {theme === 'dark' ? '⚡ Cyber Mode' : '🌑 Dark Mode'}
+          </button>
+        </div>
       </header>
       
-      <div className="cardGrid">
-        {matrixCards.map(card => (
-          <Card
-            key={card.id}
-            title={card.title}
-            content={card.content}
-            backContent={card.backContent}
-            variant={card.variant}
-          />
-        ))}
-      </div>
+      {showPacks ? (
+        <>
+          <div className="packSection">
+            <h2 className="sectionTitle">CHOOSE YOUR PACK</h2>
+            <p className="sectionSubtitle">Select a card collection to explore the Matrix</p>
+          </div>
+          <div className="packGrid">
+            {cardPacks.map(pack => (
+              <CardPack
+                key={pack.id}
+                title={pack.title}
+                subtitle={pack.subtitle}
+                cards={pack.cards}
+                variant={pack.variant}
+                onOpen={() => handlePackOpen(pack.id)}
+              />
+            ))}
+          </div>
+        </>
+      ) : (
+        <>
+          {selectedPack && (
+            <div className="packInfo">
+              <h2>{selectedPack.title}</h2>
+              <p>{selectedPack.subtitle} - {selectedPack.cards.length} Cards</p>
+            </div>
+          )}
+          <div className="cardGrid">
+            {selectedPack && selectedPack.cards.map(card => (
+              <Card
+                key={card.id}
+                title={card.title}
+                content={card.content}
+                backContent={card.backContent}
+                variant={card.variant}
+              />
+            ))}
+          </div>
+        </>
+      )}
 
       <div className="terminal">
-        <p>{'>'} Welcome to the Matrix_</p>
+        <p>{'>'} {showPacks ? 'Select a pack to begin_' : `Accessing ${selectedPack?.title || 'Matrix'}_`}</p>
       </div>
     </div>
   );
